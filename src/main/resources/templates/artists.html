@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Song Rating Portal</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"></link>
+</head>
+<body>
+<h1>Song rating portal</h1>
+<a href="/artists/new">Add New Artist</a>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+<!--<script type="text/javascript">-->
+    <!--function clearSearch() {-->
+        <!--window.location = "[[@{/}]]";-->
+    <!--}-->
+<!--</script>-->
+<div th:unless="${#lists.isEmpty(artists)}">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Year</th>
+            <th>Country</th>
+        </tr>
+        <tr th:each="artist : ${artists}">
+            <td th:text="${artist.name}"/>
+            <td th:text="${artist.year}"/>
+            <td th:text="${artist.country}"/>
+            <td>
+                <a th:href="@{/artists/edit/{id}(id=${artist.id})}">Edit</a>
+                <a th:href="@{/artists/delete/{id}(id=${artist.id})}">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<!--<form th:action="@{/}">-->
+    <!--Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required/>-->
+    <!--&nbsp;-->
+    <!--<input type="submit" value="Search"/>-->
+    <!--&nbsp;-->
+    <!--<input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />-->
+<!--</form>-->
+</body>
+</html>

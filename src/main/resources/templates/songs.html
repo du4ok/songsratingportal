@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Song Rating Portal</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"></link>
+</head>
+<body>
+<h1>Song rating portal</h1>
+<a href="/songs/new">Add New Song</a>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+<script type="text/javascript">
+    function clearSearch() {
+        window.location = "[[@{/}]]";
+    }
+</script>
+<div th:unless="${#lists.isEmpty(songs)}">
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Album</th>
+            <th>Genre</th>
+            <th>Rate</th>
+            <th>Artist</th>
+        </tr>
+        <tr th:each="song : ${songs}">
+            <td th:text="${song.title}"/>
+            <td th:text="${song.album}"/>
+            <td th:text="${song.genre}"/>
+            <td th:text="${song.rate}"/>
+            <td th:text="${song.artist.getName()}"/>
+            <td>
+                <a th:href="@{/songs/edit/{id}(id=${song.id})}">Edit</a>
+                <a th:href="@{/songs/delete/{id}(id=${song.id})}">Delete</a>
+                <a th:href="@{/songs/rate/{id}(id=${song.id})}">Rate</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<form th:action="@{/}">
+    Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required/>
+    &nbsp;
+    <input type="submit" value="Search"/>
+    &nbsp;
+    <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+</form>
+
+<label for="cars">Choose a car:</label>
+
+<select name="cars" id="cars">
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="mercedes">Mercedes</option>
+    <option value="audi">Audi</option>
+</select>
+</body>
+</html>

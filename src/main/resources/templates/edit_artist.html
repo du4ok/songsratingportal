@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>Edit Artist</title>
+</head>
+<body>
+<div align="center">
+    <h1>Edit Artist</h1>
+    <br />
+    <form action="#" th:action="@{/artists/save}" th:object="${artist}"
+          method="post">
+
+        <table border="0" cellpadding="10">
+            <tr>
+                <td>Artist ID:</td>
+                <td>
+                    <input type="text" th:field="*{id}" readonly="readonly" />
+                </td>
+            </tr>
+            <tr>
+                <td>Artist Name:</td>
+                <td>
+                    <input type="text" th:field="*{name}" />
+                </td>
+            </tr>
+            <tr>
+                <td>Founded in:</td>
+                <td><input type="text" th:field="*{year}" /></td>
+            </tr>
+            <tr>
+                <td>Country:</td>
+                <td><input type="text" th:field="*{country}" /></td>
+            </tr>
+                <td colspan="2"><button type="submit">Save</button> </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
