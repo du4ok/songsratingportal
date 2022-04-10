@@ -13,6 +13,8 @@ import ua.yaremenko.songratingsystem.entity.Song;
 import ua.yaremenko.songratingsystem.exception.ArtistNotFoundException;
 import ua.yaremenko.songratingsystem.exception.SongAlreadyExistsException;
 import ua.yaremenko.songratingsystem.exception.SongNotFoundException;
+import ua.yaremenko.songratingsystem.repository.ArtistRepository;
+import ua.yaremenko.songratingsystem.repository.SongRepository;
 import ua.yaremenko.songratingsystem.service.ArtistService;
 import ua.yaremenko.songratingsystem.service.SongService;
 
@@ -25,19 +27,10 @@ public class SongController {
     SongService songService;
     @Autowired
     ArtistService artistService;
-
-//    @PostMapping
-//    public ResponseEntity addSong(@RequestBody Song song, @RequestParam Long artist_id){
-//        try {
-//            songService.addSong(song, artist_id);
-//            return ResponseEntity.ok("Song has been added successfully!");
-//        } catch (SongAlreadyExistsException e){
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        } catch (Exception e){
-//            return ResponseEntity.badRequest().body("Unexpected exception");
-//        }
-//    }
-
+    @Autowired
+    SongRepository songRepository;
+    @Autowired
+    ArtistRepository artistRepository;
 
     @RequestMapping
     public String viewHomePage(Model model, @Param("keyword") String keyword){
@@ -48,21 +41,18 @@ public class SongController {
     }
 
     @RequestMapping("/new")
-    public String showNewSongPage(Model model, Long artist_id) {
+    public String showNewSongPage(Model model, @Param("name") String name) {
         Song song = new Song();
-        Artist artist = new Artist();
         model.addAttribute("song", song);
-        model.addAttribute("artist", artist_id);
+        model.addAttribute("name", name);
         return "new_song";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String addSong(@ModelAttribute("song") Song song) {
+    public String addSong(@ModelAttribute("song") Song song, String name) {
         try {
-            songService.addSong(song, song.getArtist().getId());
-        } catch (ArtistNotFoundException e) {
-            e.printStackTrace();
-        } catch (Exception e){
+            songService.addSong(song, name);
+        } catch (ArtistNotFoundException e){
             e.getMessage();
         }
         return "redirect:/songs";
@@ -88,14 +78,6 @@ public class SongController {
         songService.rateSong(id);
         return "redirect:/songs";
     }
-//    @RequestMapping
-//    public String getSongByTitle(Model model, @Param("title") String title){
-//        List<Song> songs = songService.getSongByTitle(title);
-//        model.addAttribute("songs",songs);
-//        model.addAttribute("title", title);
-//        return "index";
-//    }
 
-//
 
 }

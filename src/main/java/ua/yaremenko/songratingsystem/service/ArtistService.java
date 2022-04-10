@@ -25,6 +25,11 @@ public class ArtistService {
         return artistRepository.findById(id).get();
     }
 
+    public Long getIdByName(String name){
+        Artist artist = artistRepository.findByName(name);
+        return artist.getId();
+    }
+
     public void deleteArtist(Long id){
         artistRepository.deleteById(id);
     }

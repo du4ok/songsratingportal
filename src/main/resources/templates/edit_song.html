@@ -9,35 +9,36 @@
 <div align="center">
     <h1>Edit Song</h1>
     <br />
-    <form action="#" th:action="@{/songs/save}" th:object="${song}"
-          method="post">
+    <!--<form action="#" th:action="@{/songs/save}" th:object="${song}"-->
+          <!--method="post">-->
+    <form action="#" th:action="@{/songs/save}" method="post">
 
         <table border="0" cellpadding="10">
             <tr>
                 <td>Song ID:</td>
                 <td>
-                    <input type="text" th:field="*{id}" readonly="readonly" />
+                    <input type="text" th:value="${song.id}" name="id" readonly="readonly" />
                 </td>
             </tr>
             <tr>
-                <td>Artist ID:</td>
+                <td>Artist Name:</td>
                 <td>
-                    <input type="text" th:field="*{artist}" />
+                    <input type="text" th:value="${song.artist.name}" name="name" readonly="readonly" />
                 </td>
             </tr>
             <tr>
                 <td>Song Title:</td>
                 <td>
-                    <input type="text" th:field="*{title}" />
+                    <input type="text" th:value="${song.title}" name="title" />
                 </td>
             </tr>
             <tr>
                 <td>Album:</td>
-                <td><input type="text" th:field="*{album}" /></td>
+                <td><input type="text" th:value="${song.album}" name="album" /></td>
             </tr>
             <tr>
                 <td>Genre:</td>
-                <td><input type="text" th:field="*{genre}" /></td>
+                <td><input type="text" th:value="${song.genre}" name="genre" /></td>
             </tr>
                 <td colspan="2"><button type="submit">Save</button> </td>
             </tr>

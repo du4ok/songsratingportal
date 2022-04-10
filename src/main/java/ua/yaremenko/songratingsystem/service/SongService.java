@@ -20,13 +20,22 @@ public class SongService {
     @Autowired
     private ArtistRepository artistRepository;
 
-    public Song addSong(Song song, Long artist_id) throws ArtistNotFoundException {
-        Artist artist = artistRepository.findById(artist_id).get();
-        if (artist != null) {
-            song.setArtist(artist);
-            return songRepository.save(song);
+//    public Song addSong(Song song, Long artist_id) throws ArtistNotFoundException {
+//        Artist artist = artistRepository.findById(artist_id).get();
+//        if (artist != null) {
+//            song.setArtist(artist);
+//            return songRepository.save(song);
+//        }
+//        throw new ArtistNotFoundException("Artist not found");
+//    }
+
+    public Song addSong(Song song, String name) throws ArtistNotFoundException {
+        Artist artist = artistRepository.findByName(name);
+        if (artist == null) {
+            throw new ArtistNotFoundException("Artist with name " + name + " not found.");
         }
-        throw new ArtistNotFoundException("Artist not found");
+        song.setArtist(artist);
+        return songRepository.save(song);
     }
 
     public List<Song> listAllSongs(String keyword) {
